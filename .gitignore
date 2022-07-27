@@ -1,0 +1,153 @@
+# Django project
+# Created by https://www.gitignore.io
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+.env
+db.sqlite3
+*/.DS_Store
+
+/local_settings.py
+
+/assets
+
+*.log
+
+*.pot
+
+*.pyc
+
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
+
+# Git Ignore For frontend - Angular 8
+*/node_modules
+/fornt-end/.DS_STORE
+
+/fornt-end/dist/
+/fornt-end/bazel-out
+/fornt-end/integration/bazel/bazel-*
+/fornt-end/e2e_test.*
+*.log
+/fornt-end/tools/gulp-tasks/cldr/cldr-data/
+
+# Include when developing application packages.
+/fornt-end/pubspec.lock
+/fornt-end/.c9
+/fornt-end/.idea/
+/fornt-end/.devcontainer/*
+/fornt-end/!.devcontainer/recommended-devcontainer.json
+/fornt-end/!.devcontainer/recommended-Dockerfile
+/fornt-end/.settings/
+/fornt-end/.vscode/launch.json
+/fornt-end/.vscode/settings.json
+*.swo
+/fornt-end/modules/.settings
+/fornt-end/modules/.vscode
+/fornt-end/.vimrc
+/fornt-end/.nvimrc
+
+# Don't check in secret files
+*secret.js
+
+# Ignore npm/yarn debug log
+/fornt-end/npm-debug.log
+/fornt-end/yarn-error.log
+
+# build-analytics
+/fornt-end/.build-analytics
+
+# rollup-test output
+/fornt-end//modules/rollup-test/dist/
+
+# User specific bazel settings
+/fornt-end/.bazelrc.user
+
+/fornt-end/.notes.md
+/fornt-end/baseline.json

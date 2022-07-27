@@ -1,0 +1,104 @@
+<!-- animal_sitting/templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siting List</title>
+    <style>
+        .animals-siting-list {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .animals-siting-list td, .animals-siting-list th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .animals-siting-list th {
+            font-weight: bold;
+        }
+
+        .animals-siting-list tr:nth-child(even){background-color: #f2f2f2;}
+
+        .animals-siting-list tr:hover {background-color: #ddd;}
+
+        .animals-siting-list th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+        input, select {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit], button {
+            width: 20%;
+            background-color: #4c4faf;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover, button:hover {
+            background-color: #1d1f70;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            color: #4CAF50;
+        }
+
+        p {
+            text-indent: 50px;
+            text-align: justify;
+            letter-spacing: 3px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #008CBA;
+        }
+
+        #server-msg {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 3px 3px 3px 3px;
+            color: #059;
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Siting List</h1>
+    </section>
+    <div>
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+</body>
+</html>

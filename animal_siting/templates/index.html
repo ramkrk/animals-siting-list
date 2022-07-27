@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="" id="server-msg"></div>
+    <div>
+        <table class="animals-siting-list">
+            <thead>
+                <tr>
+                    <td> Animal </td>
+                    <td> Breed </td>
+                    <td> Date </td>
+                    <td> Action </td>
+                </tr>
+            </thead>
+            <tbody id="tb-body" class="table">
+            {% for slist in siting_list %}
+                <tr id="tb-row-{{slist.id}}">
+                    <td>{{ slist.animal }}</td>
+                    <td>{{ slist.breed }}</td>
+                    <td>{{ slist.dateis|date:"d/m/Y" }}</td>
+                    <td><a href="javascript:void(0);" onclick="delete_record({{slist.id}})">Del</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button class="button" onclick="event.preventDefault(); toggleForm()">New </button>
+    </div>
+    <div id="siting-list" style="display: none">
+       <form method="post" id="siting-list-form" onsubmit="event.preventDefault(); save_list();">
+           <input type="hidden" id="get-breed-url" value="{{form_urls.get_breed_url}}">
+           <input type="hidden" id="save-list-url" value="{{form_urls.save_list_url}}">
+           <input type="hidden" id="remove-list-url" value="{{form_urls.remove_list_url}}">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button class="button" type="submit">Save </button>
+        <button class="button" onclick="event.preventDefault(); toggleForm()">Cancel</button>
+    </form>
+    </div>
+</div>
+<script>
+var msg_elem = document.getElementById('server-msg')
+
+// Clear Message Contents 10 second interval
+setInterval(() => {
+    msg_elem.innerHTML = '';
+}, "10000")
+
+// Display Date Format to dd/mm/yyyy
+function getFormattedDate(date_old) {
+    let date_new = new Date(date_old);
+    let year = date_new.getFullYear();
+    let month = (1 + date_new.getMonth()).toString().padStart(2, '0');
+    let day = date_new.getDate().toString().padStart(2, '0');
+
+    return day + '/' + month + '/' + year;
+}
+
+// Show/Hide form when needed
+function toggleForm() {
+    var siting_list = document.getElementById("siting-list");
+    let siting_list_form = document.getElementById("siting-list-form");
+    if (siting_list.style.display === "none") {
+        siting_list.style.display = "block";
+    } else {
+        siting_list.style.display = "none";
+    }
+    siting_list_form.reset();
+}
+
+// Save siting list AJAX
+function save_list() {
+    let uri = document.getElementById('save-list-url').value;
+    let csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value
+    console.log(csrf_token)
+    if (uri && csrf_token) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", uri, true);
+        xhttp.setRequestHeader("Content-Type", "application/json", );
+        xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+        xhttp.onreadystatechange = function() {
+           if (this.readyState == 4 && this.status == 200) {
+             // Response
+             var resp = JSON.parse(this.responseText);
+             if (resp.data[0]) {
+                 row = createRow(resp.data[0])
+                 let tb_body = document.getElementById('tb-body');
+                 tb_body.appendChild(row);
+                 msg_elem.innerHTML= resp.msg;
+                 toggleForm();
+             }
+           }
+        };
+        var data = {
+            breed:document.getElementById("id_breed").value,
+            created: document.getElementById("id_created").value,
+            csrfmiddlewaretoken: csrf_token
+        };
+        xhttp.send(JSON.stringify(data));
+    } else {
+        alert('Missing data to post')
+    }
+}
+
+// create table row
+function createRow(data) {
+    // create new tr element
+    let tr = document.createElement('tr');
+    for (const [key, value] of Object.entries(data)) {
+        const td = document.createElement('td');
+        var text1 = document.createTextNode(value);
+        if (key === 'id') {
+            tr.setAttribute('id', "tb-row-"+value)
+            // create new a element for delete
+            const a = document.createElement('a');
+            let linkText = document.createTextNode("Del");
+            a.appendChild(linkText);
+            a.setAttribute('href', 'javascript:void(0);')
+            a.setAttribute('onclick', 'delete_record('+value+')')
+            text1 = a;
+        } if (key === 'dateis') {
+            let formated_date = getFormattedDate(value);
+            text1 = document.createTextNode(formated_date);
+        }
+
+        td.appendChild(text1);
+        tr.appendChild(td);
+    }
+    return tr;
+}
+
+// Get Breed list Ajax
+function get_breed() {
+    let animal_id = document.getElementById("id_animal").value;
+    // get Breed select
+    var sel = document.getElementById('id_breed');
+    sel.innerHTML = '<option value="" selected="">---------</option>'
+    if (animal_id) {
+        let uri = document.getElementById('get-breed-url').value;
+        let url = uri +'?animal='+animal_id;
+
+        // Fetch API
+        fetch(url)
+        .then(response=>response.json())
+        .then(data=>{
+            for (const [key, value] of Object.entries(data)) {
+                // create new option element
+                let opt = document.createElement('option');
+                opt.appendChild( document.createTextNode(value) );
+                opt.value = key;
+
+                sel.appendChild(opt);
+            }
+         })
+    }
+}
+
+function delete_record(id) {
+    if (id) {
+        let uri = document.getElementById('remove-list-url').value;
+        var tb_row = document.getElementById("tb-row-"+id)
+        let url = uri +'?slist_id='+id
+
+        fetch(url)
+        .then(response=>response.json())
+        .then(data=>{
+            for (const [key, value] of Object.entries(data)) {
+                console.log(`${key}: ${value}`);
+                if (key) {
+                    if (tb_row) {
+                        tb_row.remove();
+                    }
+                    msg_elem.innerHTML= value;
+                 }
+            }
+         })
+    } else {
+        sel.innerHTML = '<option value="" selected="">---------</option>'
+    }
+}
+</script>
+{% endblock content %}
