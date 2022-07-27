@@ -4,8 +4,7 @@ import datetime
 # Django Import
 from django.test import TestCase
 
-
-# Create your tests here.
+# Local Import
 from .models import Animal, Breed, SitingList
 from .views import get_siting_details, save_siting_list
 

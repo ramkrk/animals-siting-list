@@ -1,7 +1,7 @@
 # Django import
 from django.urls import path
 
-# Local Imports
+# Local Import
 from . import views
 
 

@@ -4,8 +4,10 @@
  Info: Holds siting list of animal's breed information
 """
 
-import datetime
+# Django Import
 from django.db import models
+
+# Local Import
 from .breeds import Breed
 
 

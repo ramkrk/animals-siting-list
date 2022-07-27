@@ -1,10 +1,8 @@
 """
  Modal: Breed
- ForeignKey: Animal
  Info: Holds animal's breed information
 """
-
-import datetime
+# Django Import
 from django.db import models
 
 

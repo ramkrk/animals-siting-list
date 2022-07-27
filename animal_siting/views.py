@@ -1,13 +1,13 @@
-# Django Imports
+# Python Import
 import json
-import datetime
+
+
+# Django Import
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.urls import reverse
-from django.views.generic import FormView
-from django.views.generic.edit import FormMixin
 
-# Local Imports
+# Local Import
 from .models import Animal, SitingList, Breed
 from .forms import SitingListForm
 
@@ -25,7 +25,7 @@ def get_siting_details(pid=None):
              'id': sl.id}
             for sl in siting_list]
 
-
+# Landing Page
 def index(request):
     """ Index page for animals sitting """
 

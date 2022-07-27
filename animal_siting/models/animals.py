@@ -2,11 +2,10 @@
  Modal: Animal
  Info: Holds animal information
 """
-
-import datetime
+# Django Import
 from django.db import models
 
-# Internal module import
+# Local Import
 from .breeds import Breed
 
 

@@ -75,7 +75,6 @@ function toggleForm() {
 function save_list() {
     let uri = document.getElementById('save-list-url').value;
     let csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value
-    console.log(csrf_token)
     if (uri && csrf_token) {
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", uri, true);
@@ -168,7 +167,6 @@ function delete_record(id) {
         .then(response=>response.json())
         .then(data=>{
             for (const [key, value] of Object.entries(data)) {
-                console.log(`${key}: ${value}`);
                 if (key) {
                     if (tb_row) {
                         tb_row.remove();
