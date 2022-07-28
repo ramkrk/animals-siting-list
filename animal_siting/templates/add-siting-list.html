@@ -1,0 +1,11 @@
+<section>
+    <form hx-post="/manage-siting-list/"
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+          hx-target="#siting-list">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button class="button" type="submit">Save </button>
+        <button class="button" hx-get="/manage-siting-list" hx-target="#siting-list" hx-swap="innerHTML show:top">Cancel</button>
+    </p>
+    </form>
+</section>

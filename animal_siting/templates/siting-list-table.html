@@ -1,0 +1,27 @@
+<div>
+    <table class="animals-siting-list">
+        <thead>
+            <tr>
+                <td> Animal </td>
+                <td> Breed </td>
+                <td> Date </td>
+                <td> Action </td>
+            </tr>
+        </thead>
+        <tbody id="tb-body" class="table">
+        {% for slist in siting_list %}
+            <tr id="tb-row-{{slist.id}}">
+                <td>{{ slist.animal }}</td>
+                <td>{{ slist.breed }}</td>
+                <td>{{ slist.dateis|date:"d/m/Y" }}</td>
+                <td><a hx-get="/manage-siting-list/{{slist.id}}" hx-target="#siting-list">Del</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div>
+    <button hx-get="/get-form/" hx-target="#add-form"> New </button>
+</div>
+<div id="add-form" class="">
+</div>

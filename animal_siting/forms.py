@@ -14,8 +14,9 @@ class SitingListForm(forms.ModelForm):
     # Extra Field
     animals = Animal.objects.all()
     animal = forms.ChoiceField(choices=tuple([(u'', 'Select Animal')] + list(animals.values_list('id', 'name'))),
-                               widget=forms.Select(attrs={'onchange': 'get_breed();'})
-                               )
+                               widget=forms.Select(attrs={'hx-post': '/get-breed-data/',
+                                                          'hx-trigger': 'change',
+                                                          'hx-target': '#id_breed'}))
 
     class Meta:
         """ Form information """
@@ -30,3 +31,9 @@ class SitingListForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['breed'].queryset = Breed.objects.none()
+
+
+class SitingListForm2(SitingListForm):
+    animals = Animal.objects.all()
+    animal = forms.ChoiceField(choices=tuple([(u'', 'Select Animal')] + list(animals.values_list('id', 'name'))),
+                               widget=forms.Select(attrs={'onchange': 'get_breed();'}))
